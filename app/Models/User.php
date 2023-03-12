@@ -4,13 +4,17 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +25,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_veified_at',
+        'avatar',
+        'country',
+        'country',
+        'city',
+        'languages',
+        'phone',
+        'discord',
+        'tasks_done',
+        'projects_done',
+        'wasted_years',
+        'ip_address',
     ];
 
     /**
@@ -41,4 +57,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class)
+            ->withPivot(['is_favourite', 'total_tasks', 'tasks_done', 'total_hours', 'wasted_hours'])
+            ->withTimestamps();
+    }
+
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class)
+            ->withPivot(['is_favourite'])
+            ->withTimestamps();
+    }
+
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class)
+            ->withPivot(['is_primary', 'years_of_experience'])
+            ->withTimestamps();
+    }
+
+    public function leadingTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -17,12 +19,32 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $languages = Collection::times(rand(1, 3), function() {
+            return Str::upper(fake()->languageCode());
+        });
+
+        $discord = fake()->userName() . "#" . fake()->numerify('####');
+        
+        $years = fake()->optional(0.8, rand(15, 25))->numberBetween(1, 10);
+        $projects = $years * rand(5, 17);
+        $tasks = $projects * rand(34, 267);
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'avatar' => 'images/' . fake()->md5() . '.jpg',
+            'country' => fake()->country(),
+            'city' => fake()->city(),
+            'languages' => $languages->implode(', '),
+            'phone' => fake()->phoneNumber(),
+            'discord' => $discord,
+            'tasks_done' => $tasks,
+            'projects_done' => $projects,
+            'wasted_years' => $years,
+            'ip_address' => fake()->ipv4(),
+            'created_at' => fake()->dateTimeBetween('-10 years', '-2 years')->format('Y-m-d H:i:s'),
         ];
     }
 

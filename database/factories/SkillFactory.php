@@ -17,8 +17,8 @@ class SkillFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->word(),
-            'created_at' => fake()->dateTimeBetween('-10 years', '-4 years')->format('Y-m-d H:i:s'),
+            'name' => ucfirst(fake()->word()),
+            'created_at' => fake()->dateTimeBetween('-10 years', '-4 years'),
         ];
     }
 }

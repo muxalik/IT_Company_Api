@@ -24,7 +24,7 @@ class UserFactory extends Factory
         });
 
         $discord = fake()->userName() . "#" . fake()->numerify('####');
-        
+
         $years = fake()->optional(0.8, rand(15, 25))->numberBetween(1, 10);
         $projects = $years * rand(5, 17);
         $tasks = $projects * rand(34, 267);
@@ -44,7 +44,7 @@ class UserFactory extends Factory
             'projects_done' => $projects,
             'wasted_years' => $years,
             'ip_address' => fake()->ipv4(),
-            'created_at' => fake()->dateTimeBetween('-10 years', '-2 years')->format('Y-m-d H:i:s'),
+            'created_at' => fake()->dateTimeBetween('-10 years', '-2 years'),
         ];
     }
 

@@ -58,6 +58,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static $guard_name = 'api';
+
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class)

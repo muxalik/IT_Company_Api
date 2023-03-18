@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -27,7 +26,7 @@ class UserFactory extends Factory
 
         $years = fake()->optional(0.8, rand(15, 25))->numberBetween(1, 10);
         $projects = $years * rand(5, 17);
-        $tasks = $projects * rand(34, 267);
+        $tasks = $projects * rand(34, 87);
 
         return [
             'name' => fake()->name(),

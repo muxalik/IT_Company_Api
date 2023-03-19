@@ -78,7 +78,7 @@ class User extends Authenticatable
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class)
-            ->withPivot(['is_primary', 'years_of_experience'])
+            ->withPivot(['is_primary', 'started_learning_in'])
             ->withTimestamps();
     }
 

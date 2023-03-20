@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'between:3,20'],
-            'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],   
+            // 'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],   
             'country' => ['required'],
             'city' => ['required'],
             'languages' => ['required'],

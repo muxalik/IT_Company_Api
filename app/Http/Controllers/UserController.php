@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return new UserCollection(User::all());
     }
 
     /**
@@ -27,10 +28,10 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return User::create(array_merge(
+        return new UserResource(User::create(array_merge(
             $request->validated(),
             ['ip_address' => $request->ip()]
-        ));
+        )));
     }
 
     /**
@@ -41,7 +42,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $user->load('projects', 'teams', 'skills', 'leadingTeam');
+        return new UserResource($user);
     }
 
     /**
@@ -58,7 +59,7 @@ class UserController extends Controller
             ['ip_address' => $request->ip(),
         ]));
 
-        return $user;
+        return new UserResource($user);
     }
 
     /**

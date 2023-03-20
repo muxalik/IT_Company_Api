@@ -20,6 +20,7 @@ class TeamSeeder extends Seeder
         
         User::all()->each(function ($user) use ($teams) {
             $team = $teams->random();
+            
             $startDate = $team->created_at->lte($user->created_at) 
                 ? $user->created_at 
                 : $team->created_at;

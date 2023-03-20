@@ -17,13 +17,13 @@ class ProjectSeeder extends Seeder
     public function run()
     {
         Project::factory(21)->create()->each(function ($project) {
-            $users = User::inRandomOrder()->take(rand(4, 10))->get();
+            $users = User::inRandomOrder()->take(mt_rand(4, 10))->get();
             $users_count = $users->count();
 
             $users->each(function ($user) use ($project, $users_count) {
                 $total_tasks = $project->total_tasks / $users_count;
-                $total_hours = rand(3, $project->total_hours / $users_count);
-                $divider = rand(2, 5);
+                $total_hours = mt_rand(3, $project->total_hours / $users_count);
+                $divider = mt_rand(2, 5);
                 $startDate = $project->created_at->lte($user->created_at)
                     ? $user->created_at
                     : $project->created_at;

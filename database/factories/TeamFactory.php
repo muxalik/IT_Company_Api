@@ -20,7 +20,7 @@ class TeamFactory extends Factory
         return [
             'name' => ucfirst(fake()->words(2, true)),
             'description' => fake()->sentence(),
-            'leader_id' => User::inRandomOrder()->first()->id,
+            'leader_id' => User::inRandomOrder()->value('id'),
             'created_at' => fake()->dateTimeBetween('-10 years', '-5 years'),
         ];
     }

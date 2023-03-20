@@ -18,15 +18,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $languages = Collection::times(rand(1, 3), function() {
+        $languages = Collection::times(mt_rand(1, 3), function() {
             return Str::upper(fake()->languageCode());
         });
 
         $discord = fake()->userName() . "#" . fake()->numerify('####');
 
-        $years = fake()->optional(0.8, rand(15, 25))->numberBetween(1, 10);
-        $projects = $years * rand(5, 17);
-        $tasks = $projects * rand(34, 87);
+        $years = fake()->optional(0.8, mt_rand(15, 25))->numberBetween(1, 10);
+        $projects = $years * mt_rand(5, 17);
+        $tasks = $projects * mt_rand(34, 87);
 
         return [
             'name' => fake()->name(),

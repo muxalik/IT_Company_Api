@@ -19,7 +19,7 @@ class SkillSeeder extends Seeder
         $skills = Skill::factory(27)->create();
 
         User::all()->each(function ($user) use ($skills) {
-            $skills = $skills->random(rand(3, 12));
+            $skills = $skills->random(mt_rand(3, 12));
 
             $user->skills()->attach($skills, [
                 'is_primary' => fake()->boolean(75),

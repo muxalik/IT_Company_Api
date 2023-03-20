@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::whereNot('name', 'Admin')->get()->pluck('name');
+        $roles = Role::whereNot('name', 'Admin')->pluck('name');
 
         User::factory(50)->create()->each(function ($user) use ($roles) {
             if (fake()->boolean(25)) {

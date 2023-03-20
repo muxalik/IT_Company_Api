@@ -25,7 +25,7 @@ class ProjectFactory extends Factory
 
         return [
             'name' => ucfirst(fake()->word()),
-            'team_id' => Team::inRandomOrder()->first()->id,
+            'team_id' => Team::inRandomOrder()->value('id'),
             'total_tasks' => $total_tasks,
             'tasks_done' => $tasks_done,
             'total_hours' => $total_hours,

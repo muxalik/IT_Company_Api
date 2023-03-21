@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => ['required', 'between:3,30'],
             'description' => ['required', 'string', 'between:10,100'],
-            'leader_id' => ['required', 'integer', 'gte:0'],
+            'leader_id' => ['required', 'integer', 'gt:0'],
         ];
     }
 }

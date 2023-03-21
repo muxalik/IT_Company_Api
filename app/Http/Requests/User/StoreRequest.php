@@ -31,12 +31,13 @@ class StoreRequest extends FormRequest
             'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],   
             'country' => ['required'],
             'city' => ['required'],
-            'languages' => ['required'],
+            'languages' => ['required', 'array'],
+            'languages.*' => ['required', 'string', 'regex:/\w{2}/'],
             'phone' => ['sometimes'],
             'discord' => ['sometimes'],
-            'tasks_done' => ['sometimes', 'numeric', 'integer', 'gte:0'],
-            'projects_done' => ['sometimes', 'numeric', 'integer', 'gte:0'],
-            'wasted_years' => ['sometimes', 'numeric', 'integer', 'gte:0'],
+            'tasks_done' => ['sometimes', 'numeric', 'integer', 'gt:0'],
+            'projects_done' => ['sometimes', 'numeric', 'integer', 'gt:0'],
+            'wasted_years' => ['sometimes', 'numeric', 'integer', 'gt:0'],
             'ip_address' => ['sometimes', 'ip'],
         ];
     }

@@ -25,16 +25,17 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'between:3,20'],
-            // 'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],   
-            'country' => ['required'],
-            'city' => ['required'],
-            'languages' => ['required'],
+            'name' => ['sometimes', 'between:3,20'],
+            'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],   
+            'country' => ['sometimes'],
+            'city' => ['sometimes'],
+            'languages' => ['sometimes', 'array'],
+            'languages.*' => ['sometimes', 'string', 'regex:/\w{2}/'],
             'phone' => ['sometimes'],
             'discord' => ['sometimes'],
-            'tasks_done' => ['sometimes', 'numeric', 'integer', 'gte:0'],
-            'projects_done' => ['sometimes', 'numeric', 'integer', 'gte:0'],
-            'wasted_years' => ['sometimes', 'numeric', 'integer', 'gte:0'],
+            'tasks_done' => ['sometimes', 'numeric', 'integer', 'gt:0'],
+            'projects_done' => ['sometimes', 'numeric', 'integer', 'gt:0'],
+            'wasted_years' => ['sometimes', 'numeric', 'integer', 'gt:0'],
             'ip_address' => ['sometimes', 'ip'],
         ];
     }

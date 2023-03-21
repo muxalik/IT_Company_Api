@@ -24,8 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'between:3,30'],
-            'team_id' => ['required', 'integer', 'gt:0'],
+            'name' => ['sometimes', 'string', 'between:3,30'],
+            'team_id' => ['sometimes', 'integer', 'gt:0'],
             'total_tasks' => ['sometimes', 'integer', 'gt:0'],
             'tasks_done' => ['sometimes', 'integer', 'gt:0'],
             'total_hours' => ['sometimes', 'integer', 'gt:0'],

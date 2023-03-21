@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'Admin@mail.com',
             'password' => bcrypt('secret-password'),
+            'salary' => '999999',
             'country' => fake()->country(),
             'city' => fake()->city(),
             'languages' => 'EN',

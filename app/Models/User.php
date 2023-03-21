@@ -29,6 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'email_veified_at',
+        'salary',
         'avatar',
         'country',
         'country',

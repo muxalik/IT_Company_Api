@@ -28,10 +28,12 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return new UserResource(User::create(array_merge(
+        $user = User::create(array_merge(
             $request->validated(),
             ['ip_address' => $request->ip()]
-        )));
+        ));
+
+        return $this->userResponse($user);
     }
 
     /**
@@ -42,7 +44,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return new UserResource($user);
+        return $this->userResponse($user);
     }
 
     /**
@@ -59,7 +61,7 @@ class UserController extends Controller
             ['ip_address' => $request->ip(),
         ]));
 
-        return new UserResource($user);
+        return $this->userResponse($user);
     }
 
     /**
@@ -74,4 +76,9 @@ class UserController extends Controller
 
         return response()->noContent();
     }
+
+    public function userResponse(User $user) 
+    {
+        return new UserResource($user);
+    } 
 }

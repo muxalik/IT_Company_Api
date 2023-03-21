@@ -6,9 +6,7 @@ use App\Http\Requests\Team\StoreRequest;
 use App\Http\Requests\Team\UpdateRequest;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\TeamResource;
-use App\Http\Resources\UserResource;
 use App\Models\Team;
-use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
@@ -30,7 +28,7 @@ class TeamController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return new TeamResource($request->validated());
+        return $this->teamResponse(Team::create($request->validated()));
     }
 
     /**
@@ -41,7 +39,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return new UserResource($team);
+        return $this->teamResponse($team);
     }
 
     /**
@@ -55,7 +53,7 @@ class TeamController extends Controller
     {
         $team->update($request->validated());
 
-        return new TeamResource($team);
+        return $this->teamResponse($team);
     }
 
     /**
@@ -69,5 +67,10 @@ class TeamController extends Controller
         $team->delete();
 
         return response()->noContent();
+    }
+
+    public function teamResponse(Team $team)
+    {
+        return new TeamResource($team);
     }
 }

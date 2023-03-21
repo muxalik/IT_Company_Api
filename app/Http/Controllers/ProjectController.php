@@ -14,20 +14,20 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\ProjectCollection
      */
-    public function index()
+    public function index(): ProjectCollection
     {
-        return new ProjectCollection(Project::all());
+        return new ProjectCollection(Project::with('users', 'team')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\Project\StoreRequest  $request
+     * @return App\Http\Resources\ProjectResource
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): ProjectResource
     {
         return $this->projectResponse(Project::create($request->validated()));
     }
@@ -36,9 +36,9 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  Project  $project
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\ProjectResource
      */
-    public function show(Project $project)
+    public function show(Project $project): ProjectResource
     {
         return $this->projectResponse($project);
     }
@@ -46,11 +46,11 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Project\UpdateRequest  $request
      * @param  Project  $project
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\ProjectResource
      */
-    public function update(UpdateRequest $request, Project $project)
+    public function update(UpdateRequest $request, Project $project): ProjectResource
     {
         $project->update($request->validated());
 
@@ -72,6 +72,6 @@ class ProjectController extends Controller
 
     public function projectResponse(Project $project): ProjectResource
     {
-        return new ProjectResource($project);
+        return new ProjectResource($project->load('users', 'team'));
     }
 }

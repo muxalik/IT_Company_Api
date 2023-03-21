@@ -7,26 +7,27 @@ use App\Http\Requests\Team\UpdateRequest;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\TeamResource;
 use App\Models\Team;
+use Illuminate\Http\Response;
 
 class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\TeamCollection
      */
-    public function index()
+    public function index(): TeamCollection
     {
-        return new TeamCollection(Team::all());
+        return new TeamCollection(Team::with('users', 'leader', 'projects')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\Team\StoreRequest  $request
+     * @return App\Http\Resources\TeamResource
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): TeamResource
     {
         return $this->teamResponse(Team::create($request->validated()));
     }
@@ -35,9 +36,9 @@ class TeamController extends Controller
      * Display the specified resource.
      *
      * @param  Team  $team
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\TeamResource
      */
-    public function show(Team $team)
+    public function show(Team $team): TeamResource
     {
         return $this->teamResponse($team);
     }
@@ -45,11 +46,11 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Team\UpdateRequest  $request
      * @param  Team  $team
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\TeamResource
      */
-    public function update(UpdateRequest $request, Team $team)
+    public function update(UpdateRequest $request, Team $team): TeamResource
     {
         $team->update($request->validated());
 
@@ -62,15 +63,15 @@ class TeamController extends Controller
      * @param  Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(Team $team): Response
     {
         $team->delete();
 
         return response()->noContent();
     }
 
-    public function teamResponse(Team $team)
+    public function teamResponse(Team $team): TeamResource
     {
-        return new TeamResource($team);
+        return new TeamResource($team->load('users', 'leader', 'projects'));
     }
 }

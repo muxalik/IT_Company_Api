@@ -61,8 +61,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['projects', 'teams', 'skills', 'leadingTeam'];
-
     public static $guard_name = 'api';
 
     public function projects(): BelongsToMany

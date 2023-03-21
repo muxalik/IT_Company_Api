@@ -18,7 +18,7 @@ class Skill extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-            ->withPivot(['is_primary', 'years_of_experience'])
+            ->withPivot(['is_primary', 'started_learning_in'])
             ->withTimestamps();
     }
 }

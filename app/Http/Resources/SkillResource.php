@@ -17,6 +17,7 @@ class SkillResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => ucfirst($this->name),
+            'users' => new UserCollection($this->whenLoaded('users')),
             'created_at' => $this->created_at->toDateTimeString()
         ];
     }

@@ -17,12 +17,12 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'team' => $this->whenLoaded('team'),
             'total_tasks' => $this->total_tasks,
             'tasks_done' => $this->tasks_done,
             'total_hours' => $this->total_hours,
             'wasted_hours' => $this->wasted_hours,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'team' => new TeamResource($this->whenLoaded('team')),
+            'created_at' => $this->created_at->toDateTimeString(),
         ];
     }
 }

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Skill\StoreRequest;
+use App\Http\Requests\Skill\UpdateRequest;
 use App\Http\Resources\SkillCollection;
 use App\Http\Resources\SkillResource;
 use App\Models\Skill;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SkillController extends Controller
@@ -18,14 +18,14 @@ class SkillController extends Controller
      */
     public function index(): SkillCollection
     {
-        return new SkillCollection(Skill::all());
+        return new SkillCollection(Skill::with('users')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\Skill\StoreRequest  $request
+     * @return App\Http\Resources\SkillResource
      */
     public function store(StoreRequest $request): SkillResource
     {
@@ -36,7 +36,7 @@ class SkillController extends Controller
      * Display the specified resource.
      *
      * @param  Skill  $skill
-     * @return SkillResource
+     * @return App\Http\Resources\SkillResource
      */
     public function show(Skill $skill): SkillResource
     {
@@ -46,11 +46,11 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Skill\UpdateRequest  $request
      * @param  Skill  $skill
-     * @return SkillResource
+     * @return App\Http\Resources\SkillResource
      */
-    public function update(Request $request, Skill $skill): SkillResource
+    public function update(UpdateRequest $request, Skill $skill): SkillResource
     {
         $skill->update($request->validated());
 
@@ -72,6 +72,6 @@ class SkillController extends Controller
 
     public function skillResponse(Skill $skill): SkillResource
     {
-        return new SkillResource($skill);
+        return new SkillResource($skill->load('users'));
     }
 }

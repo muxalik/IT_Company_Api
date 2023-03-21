@@ -13,24 +13,26 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\UserCollection
      */
-    public function index()
+    public function index(): UserCollection
     {
-        return new UserCollection(User::all());
+        return new UserCollection(User::with('projects', 'teams', 'leadingTeam', 'skills')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\User\StoreRequest  $request
+     * @return App\Http\Resources\UserResource
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): UserResource
     {
         $user = User::create(array_merge(
             $request->validated(),
-            ['ip_address' => $request->ip()]
+            [
+                'ip_address' => $request->ip()
+            ]
         ));
 
         return $this->userResponse($user);
@@ -39,10 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @return App\Http\Resources\UserResource
      */
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         return $this->userResponse($user);
     }
@@ -50,16 +52,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\User\UpdateRequest  $request
+     * @param  User  $user
+     * @return App\Http\Resources\UserResource
      */
-    public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request, User $user): UserResource
     {
         $user->update(array_merge(
             $request->validated(),
-            ['ip_address' => $request->ip(),
-        ]));
+            [
+                'ip_address' => $request->ip(),
+            ]
+        ));
 
         return $this->userResponse($user);
     }
@@ -67,7 +71,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
@@ -77,8 +81,8 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function userResponse(User $user) 
+    public function userResponse(User $user): UserResource
     {
-        return new UserResource($user);
-    } 
+        return new UserResource($user->load('projects', 'teams', 'leadingTeam', 'skills'));
+    }
 }

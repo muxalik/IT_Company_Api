@@ -17,13 +17,13 @@ class TeamResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'leader' => $this->whenNotNull(new UserResource(User::find($this->leader_id))),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-            'projects' => $this->whenLoaded('projects'),
-            'users' => $this->whenLoaded('users'),
+            'name' => ucfirst($this->name),
+            'description' => ucfirst($this->description),
+            'leader' => new UserResource($this->whenLoaded('leader')),
+            'projects' => new ProjectCollection($this->whenLoaded('projects')),
+            'users' => new UserCollection($this->whenLoaded('users')),
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

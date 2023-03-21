@@ -31,6 +31,11 @@ class Project extends Model
             ->withTimestamps();
     }
 
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
     public function prunable()
     {
         return static::where('created_at', '<=', now()->subYears(3));

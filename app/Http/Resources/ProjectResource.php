@@ -22,7 +22,7 @@ class ProjectResource extends JsonResource
             'total_hours' => $this->total_hours,
             'wasted_hours' => $this->wasted_hours,
             'team' => new TeamResource($this->whenLoaded('team')),
-            'created_at' => $this->created_at->toDateTimeString(),
+            'created_at' => $this->created_at,
         ];
     }
 }

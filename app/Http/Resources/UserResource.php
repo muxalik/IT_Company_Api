@@ -32,8 +32,8 @@ class UserResource extends JsonResource
             'leading_team' => new TeamResource($this->whenLoaded('leadingTeam')),
             'teams' => new TeamCollection($this->whenLoaded('teams')),
             'projects' => new ProjectCollection($this->whenLoaded('projects')),
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

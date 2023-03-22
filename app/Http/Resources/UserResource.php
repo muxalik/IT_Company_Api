@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => ucfirst($this->name),
             'email' => $this->email,
+            'salary' => $this->salary,
             'avatar' => $this->avatar,
             'country' => ucfirst($this->country),
             'city' => ucfirst($this->city),

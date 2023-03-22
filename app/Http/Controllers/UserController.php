@@ -28,14 +28,7 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request): UserResource
     {
-        $user = User::create(array_merge(
-            $request->validated(),
-            [
-                'ip_address' => $request->ip()
-            ]
-        ));
-
-        return $this->userResponse($user);
+        return $this->userResponse(User::create($request->validated()));
     }
 
     /**
@@ -58,12 +51,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $user): UserResource
     {
-        $user->update(array_merge(
-            $request->validated(),
-            [
-                'ip_address' => $request->ip(),
-            ]
-        ));
+        $user->update($request->validated());
 
         return $this->userResponse($user);
     }

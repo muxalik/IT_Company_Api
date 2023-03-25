@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\Skill;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,10 +18,10 @@ class SkillSeeder extends Seeder
     {
         $skills = Skill::factory(27)->create();
 
-        User::all()->each(function ($user) use ($skills) {
+        Employee::all()->each(function ($employee) use ($skills) {
             $skills = $skills->random(mt_rand(3, 12));
 
-            $user->skills()->attach($skills, [
+            $employee->skills()->attach($skills, [
                 'is_primary' => fake()->boolean(75),
                 'started_learning_in' => fake()->dateTimeBetween('-10 years', '-1 year')->format('Y')
             ]);

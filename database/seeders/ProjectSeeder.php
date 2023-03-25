@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\Project;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,18 +17,18 @@ class ProjectSeeder extends Seeder
     public function run()
     {
         Project::factory(21)->create()->each(function ($project) {
-            $users = User::inRandomOrder()->take(mt_rand(4, 10))->get();
-            $users_count = $users->count();
+            $employees = Employee::inRandomOrder()->take(mt_rand(4, 10))->get();
+            $employees_count = $employees->count();
 
-            $users->each(function ($user) use ($project, $users_count) {
-                $total_tasks = $project->total_tasks / $users_count;
-                $total_hours = mt_rand(3, $project->total_hours / $users_count);
+            $employees->each(function ($employee) use ($project, $employees_count) {
+                $total_tasks = $project->total_tasks / $employees_count;
+                $total_hours = mt_rand(3, $project->total_hours / $employees_count);
                 $divider = mt_rand(2, 5);
-                $startDate = $project->created_at->lte($user->created_at)
-                    ? $user->created_at
+                $startDate = $project->created_at->lte($employee->created_at)
+                    ? $employee->created_at
                     : $project->created_at;
 
-                $project->users()->attach($user, [
+                $project->employees()->attach($employee, [
                     'is_favourite' => fake()->boolean(30),
                     'total_tasks' => $total_tasks,
                     'tasks_done' => $total_tasks / $divider,

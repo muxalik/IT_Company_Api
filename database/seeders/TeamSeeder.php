@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Team;
-use App\Models\User;
+use App\Models\Employee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,14 +18,14 @@ class TeamSeeder extends Seeder
     {
         $teams = Team::factory(12)->create();
         
-        User::all()->each(function ($user) use ($teams) {
+        Employee::all()->each(function ($employee) use ($teams) {
             $team = $teams->random();
             
-            $startDate = $team->created_at->lte($user->created_at) 
-                ? $user->created_at 
+            $startDate = $team->created_at->lte($employee->created_at) 
+                ? $employee->created_at 
                 : $team->created_at;
 
-            $user->teams()->attach($team, [
+            $employee->teams()->attach($team, [
                 'is_favourite' => fake()->boolean(33),
                 'created_at' => fake()->dateTimeBetween($startDate),
             ]);

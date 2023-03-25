@@ -21,9 +21,9 @@ class Team extends Model
         'updated_at',
     ];
 
-    public function users(): BelongsToMany
+    public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)
+        return $this->belongsToMany(Employee::class)
             ->withPivot(['is_favourite'])
             ->withTimestamps();
     }

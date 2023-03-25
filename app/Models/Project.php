@@ -24,9 +24,9 @@ class Project extends Model
         'updated_at'
     ];
 
-    public function users(): BelongsToMany
+    public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)
+        return $this->belongsToMany(Employee::class)
             ->withPivot(['is_favourite', 'total_tasks', 'tasks_done', 'total_hours', 'wasted_hours'])
             ->withTimestamps();
     }

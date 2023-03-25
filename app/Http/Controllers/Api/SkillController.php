@@ -19,7 +19,7 @@ class SkillController extends Controller
      */
     public function index(): SkillCollection
     {
-        return new SkillCollection(Skill::with('users')->get());
+        return new SkillCollection(Skill::with('employees')->get());
     }
 
     /**
@@ -73,6 +73,6 @@ class SkillController extends Controller
 
     public function skillResponse(Skill $skill): SkillResource
     {
-        return new SkillResource($skill->load('users'));
+        return new SkillResource($skill->load('employees'));
     }
 }

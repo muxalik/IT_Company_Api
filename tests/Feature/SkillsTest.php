@@ -11,7 +11,7 @@ it('gets all skills when they exist', function () {
             'data' => [[
                 'id' => $skill->id,
                 'name' => $skill->name,
-                'users' => ['data' => []],
+                'employees' => ['data' => []],
                 'created_at' => $skill->created_at,
                 'updated_at' => $skill->updated_at,
             ]]
@@ -33,7 +33,7 @@ it('gets one skill when it exists', function () {
             'data' => [
                 'id' => $skill->id,
                 'name' => $skill->name,
-                'users' => ['data' => []],
+                'employees' => ['data' => []],
                 'created_at' => $skill->created_at,
                 'updated_at' => $skill->updated_at,
             ]
@@ -52,7 +52,7 @@ it('gets skill after creating', function () {
         ->assertJson([
             'data' => [
                 'name' => 'Testing Name',
-                'users' => ['data' => []],
+                'employees' => ['data' => []],
             ]
         ]);
 });
@@ -73,7 +73,7 @@ it('gets skill after updating', function () {
             'data' => [
                 'id' => $skill->id,
                 'name' => 'Testing Name',
-                'users' => ['data' => []],
+                'employees' => ['data' => []],
             ]
         ]);
 });

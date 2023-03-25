@@ -30,9 +30,7 @@ class UpdateRequest extends EmployeeRequest
     public function rules()
     {
         return [
-            'name' => ['sometimes', 'between:3,20'],
-            'password' => ['required', 'confirmed', Password::defaults()],
-            'salary' => ['required', 'numeric', 'integer', 'gt:0'],
+            'salary' => ['sometimes', 'numeric', 'integer', 'gt:0'],
             'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],
             'country' => ['sometimes'],
             'city' => ['sometimes'],

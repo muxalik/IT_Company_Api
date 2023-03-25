@@ -23,6 +23,7 @@ class ProjectResource extends JsonResource
             'wasted_hours' => $this->wasted_hours,
             'team' => new TeamResource($this->whenLoaded('team')),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

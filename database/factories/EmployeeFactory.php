@@ -29,6 +29,7 @@ class EmployeeFactory extends Factory
         $tasks = $projects * mt_rand(34, 87);
 
         return [
+            'name' =>  fake()->firstName() . ' ' . fake()->lastName(),
             'salary' => fake()->numberBetween(10000, 700000),
             'avatar' => 'images/' . fake()->md5() . '.jpg',
             'country' => fake()->country(),

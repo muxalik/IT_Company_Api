@@ -17,6 +17,7 @@ it('gets all employees when they exist', function () {
         ->assertExactJson([
             'data' => [[
                 'id' => $this->employee->id,
+                'name' => $this->employee->name,
                 'user_id' => $this->employee->user_id,
                 'salary' => $this->employee->salary,
                 'avatar' => $this->employee->avatar,
@@ -53,6 +54,7 @@ it('gets one employee when it exists', function () {
         ->assertExactJson([
             'data' => [
                 'id' => $this->employee->id,
+                'name' => $this->employee->name,
                 'user_id' => $this->employee->user_id,
                 'salary' => $this->employee->salary,
                 'avatar' => $this->employee->avatar,
@@ -82,6 +84,7 @@ it('gets 404 when employee does not exist', function () {
 
 it('gets employee after creating', function () {
     $this->postJson('/api/v1/employees/', [
+        'name' => 'Emp Name',
         'salary' => 312515343,
         'country' => 'Russia',
         'city' => 'Moscow',
@@ -94,6 +97,7 @@ it('gets employee after creating', function () {
     ])->assertStatus(201)
         ->assertJson([
             'data' => [
+                'name' => 'Emp Name',
                 'salary' => 312515343,
                 'country' => 'Russia',
                 'city' => 'Moscow',
@@ -114,6 +118,7 @@ it('gets employee after creating', function () {
 
 it('gets 422 if validation error while creating', function () {
     $this->postJson('/api/v1/employees/', [
+        'name' => 'rejhg3g',
         'salary' => null,
         'country' => 'Russia',
         'city' => 'Moscow',
@@ -130,6 +135,7 @@ it('gets employee after updating', function () {
     $this->employee = createEmployee();
 
     $this->putJson('/api/v1/employees/' . $this->employee->id, [
+        'name' => 'some name',
         'salary' => '312515343',
         'country' => 'Russia',
         'city' => 'Moscow',
@@ -143,6 +149,7 @@ it('gets employee after updating', function () {
         ->assertJson([
             'data' => [
                 'id' => $this->employee->id,
+                'name' => 'some name',
                 'user_id' => $this->employee->user_id,
                 'salary' => 312515343,
                 'country' => 'Russia',
@@ -166,6 +173,7 @@ it('gets 422 if validation error while updating', function () {
     $this->employee = createEmployee();
     
     $this->putJson('/api/v1/employees/' . $this->employee->id, [
+        'name' => 'nameemmememme',
         'salary' => '312515343',
         'country' => 'Russia',
         'city' => 'Moscow',

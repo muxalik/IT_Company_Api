@@ -29,6 +29,7 @@ class StoreRequest extends EmployeeRequest
     public function rules()
     {
         return [
+            'name' => ['required', 'between:3,20'],
             'salary' => ['required', 'numeric', 'integer', 'gt:0'],
             'avatar' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg', 'max:4096'],
             'country' => ['required'],

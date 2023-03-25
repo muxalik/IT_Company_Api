@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TeamResource extends JsonResource
@@ -19,9 +18,9 @@ class TeamResource extends JsonResource
             'id' => $this->id,
             'name' => ucfirst($this->name),
             'description' => ucfirst($this->description),
-            'leader' => new UserResource($this->whenLoaded('leader')),
+            'leader' => new EmployeeResource($this->whenLoaded('leader')),
             'projects' => new ProjectCollection($this->whenLoaded('projects')),
-            'users' => new UserCollection($this->whenLoaded('users')),
+            'employees' => new EmployeeCollection($this->whenLoaded('employees')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class EmployeeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,18 +16,17 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => ucfirst($this->name),
-            'email' => $this->email,
-            'salary' => $this->salary,
+            'user_id' => intval($this->user_id),
+            'salary' => intval($this->salary),
             'avatar' => $this->avatar,
             'country' => ucfirst($this->country),
             'city' => ucfirst($this->city),
             'languages' => explode(', ', $this->languages),
             'phone' => $this->phone,
             'discord' => $this->discord,
-            'tasks_done' => $this->tasks_done,
-            'projects_done' => $this->projects_done,
-            'wasted_years' => $this->wasted_years,
+            'tasks_done' => intval($this->tasks_done),
+            'projects_done' => intval($this->projects_done),
+            'wasted_years' => intval($this->wasted_years),
             'ip_address' => $this->ip_address,
             'skills' => new SkillCollection($this->whenLoaded('skills')),
             'leading_team' => new TeamResource($this->whenLoaded('leadingTeam')),

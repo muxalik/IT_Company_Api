@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Skill\StoreRequest;
-use App\Http\Requests\Skill\UpdateRequest;
+use App\Http\Requests\Api\Skill\StoreRequest;
+use App\Http\Requests\Api\Skill\UpdateRequest;
 use App\Http\Resources\SkillCollection;
 use App\Http\Resources\SkillResource;
 use App\Models\Skill;

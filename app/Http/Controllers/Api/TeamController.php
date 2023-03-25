@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Team\StoreRequest;
-use App\Http\Requests\Team\UpdateRequest;
+use App\Http\Requests\Api\Team\StoreRequest;
+use App\Http\Requests\Api\Team\UpdateRequest;
 use App\Http\Resources\TeamCollection;
 use App\Http\Resources\TeamResource;
 use App\Models\Team;

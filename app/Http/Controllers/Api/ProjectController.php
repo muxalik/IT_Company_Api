@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Project\StoreRequest;
-use App\Http\Requests\Project\UpdateRequest;
+use App\Http\Requests\Api\Project\StoreRequest;
+use App\Http\Requests\Api\Project\UpdateRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;

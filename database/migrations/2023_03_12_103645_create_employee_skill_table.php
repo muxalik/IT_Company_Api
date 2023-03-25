@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skill_user', function (Blueprint $table) {
+        Schema::create('employee_skill', function (Blueprint $table) {
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_primary')->default(false);
             $table->year('started_learning_in');
             $table->timestamps();
 
-            $table->primary(['skill_id', 'user_id']);
+            $table->primary(['employee_id', 'skill_id']);
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skill_user');
+        Schema::dropIfExists('employee_skill');
     }
 };

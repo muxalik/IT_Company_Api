@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->foreignId('leader_id')->unsigned()->nullable()->references('id')->on('users')->nullOnDelete();
+            $table->foreignId('leader_id')->unsigned()->nullable()->references('id')->on('employees')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

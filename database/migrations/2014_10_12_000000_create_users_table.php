@@ -20,16 +20,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('avatar')->nullable();
-            $table->string('country');
-            $table->string('city');
-            $table->string('languages');
-            $table->string('phone')->nullable();
-            $table->string('discord')->nullable();
-            $table->integer('tasks_done')->unsigned()->default(0);
-            $table->integer('projects_done')->unsigned()->default(0);
-            $table->integer('wasted_years')->unsigned()->default(0);
-            $table->ipAddress('ip_address');
             $table->softDeletes();
             $table->timestamps();
         });

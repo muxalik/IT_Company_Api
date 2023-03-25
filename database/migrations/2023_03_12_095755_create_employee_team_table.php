@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('team_user', function (Blueprint $table) {
+        Schema::create('employee_team', function (Blueprint $table) {
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_favourite')->default(false);
             $table->timestamps();
 
-            $table->primary(['team_id', 'user_id']);
+            $table->primary(['employee_id', 'team_id']);
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('team_user');
+        Schema::dropIfExists('employee_team');
     }
 };

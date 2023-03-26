@@ -31,25 +31,40 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'edit-project']);
         Permission::create(['name' => 'delete-project']);
 
-        Permission::create(['name' => 'view-users']);
-        Permission::create(['name' => 'create-user']);
-        Permission::create(['name' => 'show-user']);
-        Permission::create(['name' => 'edit-user']);
-        Permission::create(['name' => 'delete-user']);
+        Permission::create(['name' => 'view-employees']);
+        Permission::create(['name' => 'create-employee']);
+        Permission::create(['name' => 'show-employee']);
+        Permission::create(['name' => 'edit-employee']);
+        Permission::create(['name' => 'delete-employee']);
+
+        Permission::create(['name' => 'view-skills']);
+        Permission::create(['name' => 'create-skill']);
+        Permission::create(['name' => 'show-skill']);
+        Permission::create(['name' => 'edit-skill']);
+        Permission::create(['name' => 'delete-skill']);
 
         Role::create(['name' => 'Admin']);
         $manager = Role::create(['name' => 'Manager']);
         $teamLead = Role::create(['name' => 'TeamLead']);
+        $default = Role::create(['name' => 'Default']);
 
         $manager->givePermissionTo([
             'view-teams', 'create-team', 'show-team', 'edit-team', 'delete-team',
-            'view-users', 'create-user', 'show-user', 'edit-user', 'delete-user',
+            'view-employees', 'create-employee', 'show-employee', 'edit-employee', 'delete-employee',
+            'view-skills', 'create-skill', 'show-skill', 'edit-skill', 'delete-skill',
         ]);
 
         $teamLead->givePermissionTo([
-            'view-users', 'show-user',
+            'view-employees', 'show-employee',
             'view-teams', 'create-team', 'show-team', 'edit-team', 'delete-team',
             'view-projects', 'create-project', 'show-project', 'edit-project', 'delete-project',
+            'view-skills', 'create-skill', 'show-skill', 'edit-skill', 'delete-skill',
+        ]);
+
+        $default->givePermissionTo([
+            'view-teams', 'show-team', 
+            'view-skills', 'show-skill', 
+            'view-projects', 'show-project',
         ]);
     }
 }

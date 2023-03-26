@@ -17,16 +17,16 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::whereNot('name', 'Admin')->pluck('name');
+        $roles = Role::whereNotIn('name', ['Admin', 'Default'])->pluck('name');
 
         User::all()->each(function ($user) use ($roles) {
             Employee::factory()->create([
                 'user_id' => $user->id,
             ]);
 
-            if (fake()->boolean(25)) {
-                $user->assignRole(fake()->randomElement($roles));
-            }
+            $user->assignRole(fake()->boolean(25)
+                ? fake()->randomElement($roles)
+                : Role::where('name', 'Default')->first());
         });
     }
 }

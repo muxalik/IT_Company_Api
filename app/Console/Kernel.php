@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('model:prune')->daily();
         $schedule->command('logs:clear')->monthly()->environments(['staging', 'production']);
         $schedule->command('logs:clear')->daily()->environments(['local', 'development']);
+        $schedule->command('sanctum:prune-expired --hours=24')->daily();
     }
 
     /**
